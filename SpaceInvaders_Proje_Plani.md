@@ -64,14 +64,14 @@ Proje şu üç koşul sağlandığında "bitti" sayılır:
 - [x] Universal 2D template ile proje oluşturma
 - [x] GitHub repo + Unity .gitignore (alt klasör için `/` düzeltmesi yapıldı)
 - [x] MoSCoW dokümanı commit'lendi
-- [ ] Editörde bilinçli gezinti: Scene/Game view, Inspector, Hierarchy, Play modu tuzağı
-- [ ] İlk script: kare sprite ok tuşlarıyla sağa-sola hareket ediyor
-- [ ] En az 2 anlamlı commit
+- [x] Editörde bilinçli gezinti: Scene/Game view, Inspector, Hierarchy, Play modu tuzağı
+- [x] İlk script: kare sprite ok tuşlarıyla sağa-sola hareket ediyor
+- [x] En az 2 anlamlı commit
 
 **Bitti kriteri:** Kare ok tuşlarıyla hareket ediyor + repo'da temiz commit geçmişi var.
 
 ### Hafta 2 — Oyuncu ve ateş
-- [ ] Oyuncu gemisi ekran sınırları içinde (clamp)
+- [x] Oyuncu gemisi ekran sınırları içinde (clamp)
 - [ ] Space ile mermi ateşleme (prefab + Instantiate)
 - [ ] Mermiler ekran dışına çıkınca Destroy
 - [ ] Ateş hızına cooldown

@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     
     private Rigidbody2D rb; // Reference to the player's Rigidbody2D component
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-
+    private Vector2 moveInput = Vector2.zero; // Initialize movement input to zero
     void Start()
     {
         rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to the player
@@ -20,15 +20,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 moveInput = Vector2.zero; // Initialize movement input to zero
-
         //Left movement
         if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) moveInput.x=-1f;
         //Right Movement
         if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) moveInput.x=1f;
+        //Stop movement
+        if (!Keyboard.current.dKey.isPressed && !Keyboard.current.rightArrowKey.isPressed && !Keyboard.current.leftArrowKey.isPressed && !Keyboard.current.aKey.isPressed) moveInput.x=0f;
+    }
 
-        Vector2 Movement = moveInput * speed * Time.deltaTime; 
-
+    void FixedUpdate()
+    {
+        Vector2 Movement = moveInput * speed * Time.fixedDeltaTime; 
         rb.MovePosition(rb.position + Movement);
     }
 }
