@@ -9,4 +9,10 @@ public class Movement : MonoBehaviour
         BulletBody = GetComponent<Rigidbody2D>();
         BulletBody.linearVelocityY = speed;
     }
+
+    void OnTriggerEnter2D(Collider2D HitInfo)
+    {
+        Debug.Log(HitInfo.name);
+        Destroy(gameObject);
+    }
 }

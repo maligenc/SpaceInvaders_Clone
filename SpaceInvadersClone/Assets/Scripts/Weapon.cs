@@ -1,5 +1,6 @@
 using System;
-using UnityEditor.Callbacks;
+using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Scripting.APIUpdating;
@@ -11,12 +12,14 @@ public class Weapon : MonoBehaviour
     public Transform FirePoint;
     public GameObject Bullet;
 
+    private float fireTime = -0.5f;
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (Keyboard.current.spaceKey.isPressed && Time.time >fireTime + 0.5f)
         {
             Shoot();
+            fireTime = Time.time;
         }
     }
 

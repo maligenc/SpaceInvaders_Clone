@@ -72,9 +72,9 @@ Proje şu üç koşul sağlandığında "bitti" sayılır:
 
 ### Hafta 2 — Oyuncu ve ateş
 - [x] Oyuncu gemisi ekran sınırları içinde (clamp)
-- [ ] Space ile mermi ateşleme (prefab + Instantiate)
-- [ ] Mermiler ekran dışına çıkınca Destroy
-- [ ] Ateş hızına cooldown
+- [x] Space ile mermi ateşleme (prefab + Instantiate)
+- [x] Mermiler ekran dışına çıkınca Destroy
+- [x] Ateş hızına cooldown
 
 **Bitti kriteri:** Sahne çöplüğe dönmeden sürekli ateş edilebiliyor.
 
