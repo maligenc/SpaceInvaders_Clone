@@ -79,7 +79,7 @@ Proje şu üç koşul sağlandığında "bitti" sayılır:
 **Bitti kriteri:** Sahne çöplüğe dönmeden sürekli ateş edilebiliyor.
 
 ### Hafta 3 — Düşmanlar geliyor
-- [ ] Alien prefab'ı; mermi çarpınca ölüyor (Collider2D + OnTriggerEnter2D)
+- [x] Alien prefab'ı; mermi çarpınca ölüyor (Collider2D + OnTriggerEnter2D)
 - [ ] Kodla 5x8 alien dizisi spawn (iç içe for döngüsü)
 
 **Bitti kriteri:** Dizi ekranda, alienlar vurulunca ölüyor.
