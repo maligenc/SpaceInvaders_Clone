@@ -85,7 +85,8 @@ Proje şu üç koşul sağlandığında "bitti" sayılır:
 **Bitti kriteri:** Dizi ekranda, alienlar vurulunca ölüyor.
 
 ### Hafta 4 — Klasik hareket paterni ⚠ zor hafta
-- [ ] Dizi topluca sağa/sola hareket; kenarda bir satır aşağı inip yön değiştirme
+- [x] Dizi topluca sağa/sola hareket; kenarda bir satır aşağı inip yön değiştirme
+- [ ] Hareket mekaniğinin pürüssüzleşmesi lazım
 - [ ] Alien sayısı azaldıkça hız artışı
 
 **Bitti kriteri:** Orijinal Space Invaders hareket hissi çalışıyor.
