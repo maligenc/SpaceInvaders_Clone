@@ -10,6 +10,9 @@ public class EnemySpawner : MonoBehaviour
     private int columnSize;
     [SerializeField]
     private int rowSize;
+    
+    [SerializeField]
+    private Transform FormationCenter;
 
     void Start()
     {
@@ -20,10 +23,9 @@ public class EnemySpawner : MonoBehaviour
                 Vector3 spawn = SpawnerPoint.position;
                 spawn.y += row;
                 spawn.x += col;
-                Instantiate(Enemy,spawn,SpawnerPoint.rotation);
+                Instantiate(Enemy,spawn,SpawnerPoint.rotation,FormationCenter);
             }
         }
 
     }
-
 }
