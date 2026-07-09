@@ -1062,9 +1062,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9e37c2c69c50e408de3c475e62a45c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FormationMovement
-  speed: 1
-  FormationCenter: {fileID: 0}
+  speed: 3
   farRightChild: {x: 0, y: 0}
+  SlideDown: 0.1
 --- !u!50 &1594101588
 Rigidbody2D:
   serializedVersion: 5
