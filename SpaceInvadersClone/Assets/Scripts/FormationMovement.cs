@@ -11,7 +11,7 @@ public class FormationMovement : MonoBehaviour
     public Vector2 farRightChild = Vector2.zero;
 
     [SerializeField]
-    private float SlideDown = 0.1f;
+    private float SlideDown = 0.2f;
    
 
     void Start()
