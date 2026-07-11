@@ -6,35 +6,47 @@ public class FormationMovement : MonoBehaviour
 
     [SerializeField]
     private float speed = 10f;
-    private Vector2 direction = Vector2.right;
-
-    public Vector2 farRightChild = Vector2.zero;
-
     [SerializeField]
     private float SlideDown = 0.2f;
-   
+    [SerializeField]
+    private float EnemyDeathMultiplier = 0.03125f;
+
+    private int enemycount=0;
+    private Vector2 direction = Vector2.right;
+    private Vector2 leadingEdgeX = Vector2.zero;
+    
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        enemycount = transform.childCount;
     }
 
     void Update()
     {
+        if (direction == Vector2.right)
+        {
+            leadingEdgeX.x=float.MinValue;
+        }
+        else
+        {
+            leadingEdgeX.x=float.MaxValue;
+        }
         foreach (Transform child in transform)
         {
-            if (speed > 0)
+
+            if (direction == Vector2.right)
             {
-                if(child.position.x > farRightChild.x)
+                if(child.position.x > leadingEdgeX.x)
                 {
-                    farRightChild.x=child.position.x;
+                    leadingEdgeX.x=child.position.x;
                 }
             }
             else
             {
-                if(child.position.x < farRightChild.x)
+                if(child.position.x < leadingEdgeX.x)
                 {
-                    farRightChild.x=child.position.x;
+                    leadingEdgeX.x=child.position.x;
                 }
             }
         }
@@ -43,12 +55,19 @@ public class FormationMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        float ChildCount = transform.childCount * 0.1f;
-        float RealSpeed = speed-ChildCount;
+        float EnemyDeath = (enemycount - transform.childCount) * EnemyDeathMultiplier;
+        float RealSpeed = speed+EnemyDeath;
         Vector2 slide = Vector2.zero;
-        if (farRightChild.x < -7 ||farRightChild.x>7)
+
+
+        if (leadingEdgeX.x>7)
         {
-            speed *=-1;
+            direction = Vector2.left;
+            slide = Vector2.down * SlideDown;
+        }
+        else if(leadingEdgeX.x < -7)
+        {
+            direction = Vector2.right;
             slide = Vector2.down * SlideDown;
         }
         Vector2 Movement = direction *RealSpeed * Time.fixedDeltaTime;

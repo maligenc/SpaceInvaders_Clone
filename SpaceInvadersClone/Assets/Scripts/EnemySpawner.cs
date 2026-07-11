@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -13,7 +14,6 @@ public class EnemySpawner : MonoBehaviour
     
     [SerializeField]
     private Transform FormationCenter;
-
     void Start()
     {
         for(int row =0 ; row<rowSize ; row++)
@@ -26,6 +26,5 @@ public class EnemySpawner : MonoBehaviour
                 Instantiate(Enemy,spawn,SpawnerPoint.rotation,FormationCenter);
             }
         }
-
     }
 }

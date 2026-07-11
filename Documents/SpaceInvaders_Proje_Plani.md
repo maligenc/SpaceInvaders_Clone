@@ -86,8 +86,8 @@ Proje şu üç koşul sağlandığında "bitti" sayılır:
 
 ### Hafta 4 — Klasik hareket paterni ⚠ zor hafta
 - [x] Dizi topluca sağa/sola hareket; kenarda bir satır aşağı inip yön değiştirme
-- [ ] Hareket mekaniğinin pürüssüzleşmesi lazım
-- [ ] Alien sayısı azaldıkça hız artışı
+- [x] Hareket mekaniğinin pürüssüzleşmesi lazım
+- [x] Alien sayısı azaldıkça hız artışı
 
 **Bitti kriteri:** Orijinal Space Invaders hareket hissi çalışıyor.
 *Not: Bu hafta tek göreve ayrılmıştır, takılmak normaldir. Uzarsa sıkıştırma, kaydır.*
