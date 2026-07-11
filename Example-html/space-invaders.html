@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPACE INVADERS — 3 SEVİYE</title>
+<style>
+  :root{
+    --phosphor:#39ff5a;
+    --bg:#050805;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    background:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Courier New',monospace;
+    overflow:hidden;
+  }
+  .cabinet{
+    position:relative;
+    padding:18px;
+    background:radial-gradient(ellipse at center, #101510 0%, #000 90%);
+    border-radius:18px;
+    box-shadow:0 0 60px rgba(0,0,0,.9), inset 0 0 40px rgba(0,0,0,.8);
+  }
+  .screen{
+    position:relative;
+    border-radius:12px;
+    overflow:hidden;
+    border:3px solid #1a221a;
+  }
+  canvas{
+    display:block;
+    background:var(--bg);
+    image-rendering:pixelated;
+  }
+  /* CRT tarama çizgileri + vinyet */
+  .screen::before{
+    content:"";
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0) 0px,
+      rgba(0,0,0,0) 2px,
+      rgba(0,0,0,.22) 3px,
+      rgba(0,0,0,.22) 4px
+    );
+    pointer-events:none;
+    z-index:2;
+  }
+  .screen::after{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%);
+    pointer-events:none;
+    z-index:3;
+  }
+  .flicker{
+    position:absolute; inset:0;
+    background:rgba(180,255,190,.02);
+    pointer-events:none;
+    z-index:4;
+    animation:flick 4s infinite steps(1);
+  }
+  @keyframes flick{
+    0%,93%,100%{opacity:.4}
+    94%{opacity:.9}
+    95%{opacity:.2}
+    96%{opacity:.7}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .flicker{animation:none;}
+  }
+  .hint{
+    text-align:center;
+    color:#3a4a3a;
+    font-size:12px;
+    letter-spacing:2px;
+    margin-top:12px;
+    user-select:none;
+  }
+</style>
+</head>
+<body>
+<div class="cabinet">
+  <div class="screen">
+    <canvas id="game" width="480" height="560"></canvas>
+    <div class="flicker"></div>
+  </div>
+  <div class="hint">← → / A D : HAREKET &nbsp;•&nbsp; BOŞLUK : ATEŞ &nbsp;•&nbsp; P : DURAKLAT &nbsp;•&nbsp; M : SES</div>
+</div>
+
+<script>
+"use strict";
+
+/* ============ TEMEL ============ */
+const cv = document.getElementById("game");
+const ctx = cv.getContext("2d");
+const W = cv.width, H = cv.height;
+
+/* ============ SES (WebAudio bip'leri) ============ */
+let audioCtx = null, muted = false;
+function beep(freq, dur, type, vol){
+  if (muted) return;
+  try{
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = type || "square";
+    o.frequency.value = freq;
+    g.gain.value = vol || 0.06;
+    o.connect(g); g.connect(audioCtx.destination);
+    const t = audioCtx.currentTime;
+    g.gain.setValueAtTime(vol || 0.06, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.start(t); o.stop(t + dur);
+  }catch(e){}
+}
+const marchNotes = [110, 98, 87, 78];
+let marchIdx = 0;
+
+/* ============ SPRITE'LAR (piksel bitmap) ============ */
+function parseSprite(rows){ return rows.map(r => r.split("").map(Number)); }
+
+const SPR = {
+  squid: [ // küçük — üst sıra (30 puan)
+    parseSprite(["00011000","00111100","01111110","11011011","11111111","01011010","10000001","01000010"]),
+    parseSprite(["00011000","00111100","01111110","11011011","11111111","00100100","01011010","10100101"])
+  ],
+  crab: [ // orta (20 puan)
+    parseSprite(["00100000100","00010001000","00111111100","01101110110","11111111111","10111111101","10100000101","00011011000"]),
+    parseSprite(["00100000100","10010001001","10111111101","11101110111","11111111111","01111111110","00100000100","01000000010"])
+  ],
+  octo: [ // büyük — alt sıralar (10 puan)
+    parseSprite(["000011110000","011111111110","111111111111","111001100111","111111111111","000110011000","001101101100","110000000011"]),
+    parseSprite(["000011110000","011111111110","111111111111","111001100111","111111111111","001110011100","011001100110","001100001100"])
+  ],
+  player: [
+    parseSprite(["00000100000","00001110000","00001110000","01111111110","11111111111","11111111111"])
+  ],
+  ufo: [
+    parseSprite(["0000111111110000","0011111111111100","0111111111111110","1101101101101101","1111111111111111","0011100110011100","0001000000001000"])
+  ],
+  boom: [
+    parseSprite(["01000010","00100100","10011001","01000010","01000010","10011001","00100100","01000010"])
+  ]
+};
+
+function drawSprite(bmp, x, y, px, color){
+  ctx.fillStyle = color;
+  for (let r = 0; r < bmp.length; r++){
+    const row = bmp[r];
+    for (let c = 0; c < row.length; c++){
+      if (row[c]) ctx.fillRect(x + c*px, y + r*px, px, px);
+    }
+  }
+}
+
+/* ============ SEVİYELER ============ */
+/* Her seviyenin kendi CRT fosfor rengi var: yeşil → amber → buz mavisi */
+const LEVELS = [
+  { rows:4, cols:8,  stepDelay:640, fireEvery:1400, enemyBulletSpd:170, descend:14,
+    color:"#39ff5a", dim:"#155c26", name:"SEVİYE 1", sub:"YEŞİL FOSFOR" },
+  { rows:5, cols:9,  stepDelay:500, fireEvery:1000, enemyBulletSpd:215, descend:16,
+    color:"#ffb000", dim:"#6b4a00", name:"SEVİYE 2", sub:"AMBER ALARM" },
+  { rows:5, cols:10, stepDelay:380, fireEvery:720,  enemyBulletSpd:265, descend:18,
+    color:"#4dd8ff", dim:"#0e4d61", name:"SEVİYE 3", sub:"SON DALGA" }
+];
+
+/* ============ OYUN DURUMU ============ */
+const PIX = 2;                 // sprite piksel ölçeği
+const CELL_W = 36, CELL_H = 30;
+const PLAYER_Y = H - 54;
+
+let state = "title";           // title | intro | playing | paused | gameover | win
+let level = 0;
+let score = 0, hiScore = 0, lives = 3;
+let introTimer = 0, msgTimer = 0;
+
+let player, playerBullets, invaders, enemyBullets, barriers, ufo, particles;
+let inv;                       // sürü hareket durumu
+let keys = {};
+
+function currentColor(){ return LEVELS[level].color; }
+function currentDim(){ return LEVELS[level].dim; }
+
+/* ============ KURULUM ============ */
+function buildBarriers(){
+  barriers = [];
+  const shape = parseSprite([
+    "0011111100",
+    "0111111110",
+    "1111111111",
+    "1111111111",
+    "1110000111",
+    "1100000011"
+  ]);
+  const bw = 10, bh = 6, blk = 6;
+  const count = 4;
+  const totalW = count * bw * blk;
+  const gap = (W - totalW) / (count + 1);
+  for (let i = 0; i < count; i++){
+    const bx = gap + i * (bw * blk + gap);
+    const by = H - 130;
+    const blocks = [];
+    for (let r = 0; r < bh; r++)
+      for (let c = 0; c < bw; c++)
+        if (shape[r][c]) blocks.push({ x: bx + c*blk, y: by + r*blk, s: blk, hp: 2 });
+    barriers.push(blocks);
+  }
+}
+
+function buildInvaders(){
+  const L = LEVELS[level];
+  invaders = [];
+  const gridW = L.cols * CELL_W;
+  const startX = (W - gridW) / 2 + 4;
+  const startY = 84;
+  for (let r = 0; r < L.rows; r++){
+    for (let c = 0; c < L.cols; c++){
+      let type, pts;
+      if (r === 0){ type = "squid"; pts = 30; }
+      else if (r <= 1 + (L.rows > 4 ? 1 : 0)){ type = "crab"; pts = 20; }
+      else { type = "octo"; pts = 10; }
+      invaders.push({
+        type, pts, alive: true,
+        col: c, row: r,
+        x: startX + c * CELL_W,
+        y: startY + r * CELL_H
+      });
+    }
+  }
+  inv = { dir: 1, timer: 0, frame: 0, total: invaders.length };
+}
+
+function startLevel(n){
+  level = n;
+  document.documentElement.style.setProperty("--phosphor", currentColor());
+  buildInvaders();
+  buildBarriers();
+  playerBullets = [];
+  enemyBullets = [];
+  particles = [];
+  ufo = null;
+  player = { x: W/2 - 11*PIX/2, w: 11*PIX, h: 6*PIX, cooldown: 0, dead: 0 };
+  state = "intro";
+  introTimer = 1800;
+}
+
+function resetGame(){
+  score = 0; lives = 3;
+  startLevel(0);
+}
+
+/* ============ GİRDİ ============ */
+addEventListener("keydown", e => {
+  if (["ArrowLeft","ArrowRight"," ","Space"].includes(e.key) || e.code === "Space") e.preventDefault();
+  keys[e.code] = true;
+
+  if (e.code === "KeyM"){ muted = !muted; msgTimer = 900; }
+  if (e.code === "KeyP" && (state === "playing" || state === "paused")){
+    state = state === "playing" ? "paused" : "playing";
+  }
+  if (e.code === "Space" || e.code === "Enter"){
+    if (state === "title") resetGame();
+    else if (state === "gameover" || state === "win") state = "title";
+  }
+});
+addEventListener("keyup", e => { keys[e.code] = false; });
+
+/* ============ GÜNCELLEME ============ */
+let lastTime = 0;
+function loop(t){
+  const dt = Math.min(t - lastTime, 50);
+  lastTime = t;
+  update(dt);
+  render();
+  requestAnimationFrame(loop);
+}
+
+function update(dt){
+  if (state === "intro"){
+    introTimer -= dt;
+    if (introTimer <= 0) state = "playing";
+    return;
+  }
+  if (state !== "playing") return;
+  if (msgTimer > 0) msgTimer -= dt;
+
+  const L = LEVELS[level];
+
+  /* --- oyuncu --- */
+  if (player.dead > 0){
+    player.dead -= dt;
+    if (player.dead <= 0){
+      player.x = W/2 - player.w/2;
+      enemyBullets = [];
+    }
+  } else {
+    const spd = 0.26 * dt;
+    if (keys["ArrowLeft"] || keys["KeyA"]) player.x -= spd;
+    if (keys["ArrowRight"] || keys["KeyD"]) player.x += spd;
+    player.x = Math.max(8, Math.min(W - player.w - 8, player.x));
+
+    player.cooldown -= dt;
+    if (keys["Space"] && player.cooldown <= 0 && playerBullets.length < 2){
+      playerBullets.push({ x: player.x + player.w/2 - 1, y: PLAYER_Y - 6, w: 2, h: 10 });
+      player.cooldown = 320;
+      beep(880, 0.08, "square", 0.05);
+    }
+  }
+
+  /* --- sürü hareketi (adım tabanlı, klasik) --- */
+  const aliveList = invaders.filter(i => i.alive);
+  const aliveCount = aliveList.length;
+  if (aliveCount === 0){
+    if (level < LEVELS.length - 1){
+      score += 100 * (level + 1);
+      startLevel(level + 1);
+      beep(660, 0.15, "square", 0.07);
+      setTimeout(() => beep(880, 0.2, "square", 0.07), 150);
+    } else {
+      state = "win";
+      hiScore = Math.max(hiScore, score);
+    }
+    return;
+  }
+
+  // kalan düşman azaldıkça hızlan
+  const speedFactor = 0.35 + 0.65 * (aliveCount / inv.total);
+  const delay = Math.max(70, L.stepDelay * speedFactor);
+  inv.timer += dt;
+  if (inv.timer >= delay){
+    inv.timer = 0;
+    inv.frame = 1 - inv.frame;
+    beep(marchNotes[marchIdx], 0.09, "square", 0.045);
+    marchIdx = (marchIdx + 1) % 4;
+
+    let minX = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const i of aliveList){
+      minX = Math.min(minX, i.x);
+      maxX = Math.max(maxX, i.x + 12*PIX);
+      maxY = Math.max(maxY, i.y + 8*PIX);
+    }
+    const stepX = 10;
+    if ((inv.dir === 1 && maxX + stepX > W - 10) || (inv.dir === -1 && minX - stepX < 10)){
+      inv.dir *= -1;
+      for (const i of invaders) i.y += L.descend;
+    } else {
+      for (const i of invaders) i.x += stepX * inv.dir;
+    }
+    if (maxY >= PLAYER_Y - 10){
+      gameOver();
+      return;
+    }
+  }
+
+  /* --- düşman ateşi: her sütunun en alttaki canlısı ateş edebilir --- */
+  inv.fireTimer = (inv.fireTimer || 0) + dt;
+  if (inv.fireTimer >= L.fireEvery && player.dead <= 0){
+    inv.fireTimer = 0;
+    const bottoms = {};
+    for (const i of aliveList){
+      if (!bottoms[i.col] || i.y > bottoms[i.col].y) bottoms[i.col] = i;
+    }
+    const shooters = Object.values(bottoms);
+    if (shooters.length){
+      const s = shooters[Math.floor(Math.random() * shooters.length)];
+      enemyBullets.push({ x: s.x + 6*PIX, y: s.y + 8*PIX, w: 3, h: 9 });
+    }
+  }
+
+  /* --- UFO --- */
+  if (!ufo && Math.random() < 0.0006 * dt){
+    const fromLeft = Math.random() < 0.5;
+    ufo = { x: fromLeft ? -40 : W + 40, dir: fromLeft ? 1 : -1, y: 46 };
+  }
+  if (ufo){
+    ufo.x += ufo.dir * 0.09 * dt;
+    if (ufo.x < -60 || ufo.x > W + 60) ufo = null;
+  }
+
+  /* --- mermiler --- */
+  for (const b of playerBullets) b.y -= 0.45 * dt;
+  for (const b of enemyBullets) b.y += (L.enemyBulletSpd / 1000) * dt;
+  playerBullets = playerBullets.filter(b => b.y + b.h > 0);
+  enemyBullets = enemyBullets.filter(b => b.y < H);
+
+  /* --- çarpışmalar --- */
+  // oyuncu mermisi → düşman
+  for (const b of playerBullets){
+    for (const i of invaders){
+      if (!i.alive) continue;
+      const iw = (i.type === "squid" ? 8 : i.type === "crab" ? 11 : 12) * PIX;
+      if (hit(b.x, b.y, b.w, b.h, i.x, i.y, iw, 8*PIX)){
+        i.alive = false;
+        b.dead = true;
+        score += i.pts;
+        spawnBoom(i.x, i.y);
+        beep(200 + Math.random()*100, 0.12, "sawtooth", 0.06);
+        break;
+      }
+    }
+    // UFO
+    if (!b.dead && ufo && hit(b.x, b.y, b.w, b.h, ufo.x, ufo.y, 16*PIX, 7*PIX)){
+      b.dead = true;
+      const bonus = [50, 100, 150, 300][Math.floor(Math.random()*4)];
+      score += bonus;
+      spawnBoom(ufo.x + 8, ufo.y);
+      msgText = "+" + bonus; msgTimer = 900; msgX = ufo.x; msgY = ufo.y;
+      ufo = null;
+      beep(1200, 0.25, "sawtooth", 0.07);
+    }
+  }
+  playerBullets = playerBullets.filter(b => !b.dead);
+
+  // mermiler → siperler
+  for (const blocks of barriers){
+    for (const blk of blocks){
+      if (blk.hp <= 0) continue;
+      for (const b of playerBullets){
+        if (!b.dead && hit(b.x, b.y, b.w, b.h, blk.x, blk.y, blk.s, blk.s)){ blk.hp--; b.dead = true; }
+      }
+      for (const b of enemyBullets){
+        if (!b.dead && hit(b.x, b.y, b.w, b.h, blk.x, blk.y, blk.s, blk.s)){ blk.hp--; b.dead = true; }
+      }
+      // düşmanlar sipere değerse siper erir
+      for (const i of invaders){
+        if (i.alive && hit(i.x, i.y, 12*PIX, 8*PIX, blk.x, blk.y, blk.s, blk.s)) blk.hp = 0;
+      }
+    }
+  }
+  playerBullets = playerBullets.filter(b => !b.dead);
+  enemyBullets = enemyBullets.filter(b => !b.dead);
+
+  // düşman mermisi → oyuncu
+  if (player.dead <= 0){
+    for (const b of enemyBullets){
+      if (hit(b.x, b.y, b.w, b.h, player.x, PLAYER_Y, player.w, player.h)){
+        b.dead = true;
+        lives--;
+        spawnBoom(player.x + 4, PLAYER_Y - 4);
+        beep(90, 0.4, "sawtooth", 0.09);
+        if (lives <= 0){ gameOver(); return; }
+        player.dead = 1200;
+        break;
+      }
+    }
+    enemyBullets = enemyBullets.filter(b => !b.dead);
+  }
+
+  /* --- parçacıklar --- */
+  for (const p of particles) p.t -= dt;
+  particles = particles.filter(p => p.t > 0);
+}
+
+function gameOver(){
+  state = "gameover";
+  hiScore = Math.max(hiScore, score);
+  beep(70, 0.8, "sawtooth", 0.1);
+}
+
+function hit(ax, ay, aw, ah, bx, by, bw, bh){
+  return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by;
+}
+
+let msgText = "", msgX = 0, msgY = 0;
+function spawnBoom(x, y){
+  particles.push({ x, y, t: 260 });
+}
+
+/* ============ ÇİZİM ============ */
+function text(str, x, y, size, color, align){
+  ctx.fillStyle = color;
+  ctx.font = "bold " + size + "px 'Courier New', monospace";
+  ctx.textAlign = align || "left";
+  ctx.fillText(str, x, y);
+}
+
+function render(){
+  const col = currentColor(), dim = currentDim();
+  ctx.clearRect(0, 0, W, H);
+  ctx.shadowColor = col;
+  ctx.shadowBlur = 6;
+
+  if (state === "title"){ renderTitle(); ctx.shadowBlur = 0; return; }
+
+  /* HUD */
+  text("SKOR " + String(score).padStart(5, "0"), 14, 26, 14, col);
+  text("REKOR " + String(hiScore).padStart(5, "0"), W/2, 26, 14, dim, "center");
+  text(LEVELS[level].name, W - 14, 26, 14, col, "right");
+  // canlar
+  text("CAN", 14, H - 12, 12, dim);
+  for (let i = 0; i < lives; i++)
+    drawSprite(SPR.player[0], 52 + i * 30, H - 24, 1.6, col);
+  ctx.strokeStyle = dim;
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(8, H - 32); ctx.lineTo(W - 8, H - 32); ctx.stroke();
+
+  /* siperler */
+  for (const blocks of barriers){
+    for (const blk of blocks){
+      if (blk.hp <= 0) continue;
+      ctx.fillStyle = blk.hp === 2 ? col : dim;
+      ctx.fillRect(blk.x, blk.y, blk.s - 1, blk.s - 1);
+    }
+  }
+
+  /* düşmanlar */
+  for (const i of invaders){
+    if (!i.alive) continue;
+    drawSprite(SPR[i.type][inv.frame], i.x, i.y, PIX, col);
+  }
+
+  /* UFO */
+  if (ufo) drawSprite(SPR.ufo[0], ufo.x, ufo.y, PIX, "#ff4d6d");
+
+  /* oyuncu */
+  if (player.dead <= 0 || Math.floor(player.dead / 120) % 2 === 0)
+    drawSprite(SPR.player[0], player.x, PLAYER_Y, PIX, col);
+
+  /* mermiler */
+  ctx.fillStyle = "#ffffff";
+  for (const b of playerBullets) ctx.fillRect(b.x, b.y, b.w, b.h);
+  ctx.fillStyle = col;
+  for (const b of enemyBullets){
+    // zikzak mermi görünümü
+    ctx.fillRect(b.x, b.y, b.w, 3);
+    ctx.fillRect(b.x - 2, b.y + 3, b.w, 3);
+    ctx.fillRect(b.x, b.y + 6, b.w, 3);
+  }
+
+  /* patlamalar */
+  for (const p of particles)
+    drawSprite(SPR.boom[0], p.x, p.y, PIX, "#ffffff");
+
+  /* UFO bonus yazısı */
+  if (msgTimer > 0 && msgText)
+    text(msgText, msgX, msgY, 13, "#ff4d6d");
+
+  /* durum ekranları */
+  if (state === "intro"){
+    overlay();
+    text(LEVELS[level].name, W/2, H/2 - 14, 32, col, "center");
+    text(LEVELS[level].sub, W/2, H/2 + 18, 15, dim, "center");
+  } else if (state === "paused"){
+    overlay();
+    text("DURAKLATILDI", W/2, H/2, 26, col, "center");
+    text("Devam etmek için P", W/2, H/2 + 30, 13, dim, "center");
+  } else if (state === "gameover"){
+    overlay();
+    text("OYUN BİTTİ", W/2, H/2 - 10, 34, "#ff4d6d", "center");
+    text("SKOR: " + score, W/2, H/2 + 24, 16, col, "center");
+    text("Başa dönmek için BOŞLUK", W/2, H/2 + 52, 13, dim, "center");
+  } else if (state === "win"){
+    overlay();
+    text("KAZANDIN!", W/2, H/2 - 24, 34, col, "center");
+    text("Dünya kurtuldu. Şimdilik.", W/2, H/2 + 6, 14, dim, "center");
+    text("SKOR: " + score, W/2, H/2 + 34, 16, col, "center");
+    text("Tekrar oynamak için BOŞLUK", W/2, H/2 + 62, 13, dim, "center");
+  }
+
+  ctx.shadowBlur = 0;
+}
+
+function overlay(){
+  ctx.save();
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = "rgba(0,0,0,.72)";
+  ctx.fillRect(0, 0, W, H);
+  ctx.restore();
+  ctx.shadowBlur = 6;
+}
+
+let titleT = 0;
+function renderTitle(){
+  titleT += 16;
+  const col = "#39ff5a", dim = "#155c26";
+  text("SPACE", W/2, 150, 52, col, "center");
+  text("INVADERS", W/2, 205, 52, col, "center");
+  text("· 3 SEVİYE ·", W/2, 240, 15, dim, "center");
+
+  // puan tablosu
+  const cx = W/2 - 70;
+  const rows = [
+    ["squid", "= 30 PUAN"],
+    ["crab",  "= 20 PUAN"],
+    ["octo",  "= 10 PUAN"]
+  ];
+  let y = 300;
+  const frame = Math.floor(titleT / 500) % 2;
+  for (const [type, label] of rows){
+    drawSprite(SPR[type][frame], cx, y, 2, col);
+    text(label, cx + 40, y + 14, 14, dim);
+    y += 42;
+  }
+  drawSprite(SPR.ufo[0], cx - 4, y, 2, "#ff4d6d");
+  text("= ??? PUAN", cx + 40, y + 12, 14, "#7a2636");
+
+  if (Math.floor(titleT / 600) % 2 === 0)
+    text("BAŞLAMAK İÇİN BOŞLUK", W/2, 490, 16, col, "center");
+}
+
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
