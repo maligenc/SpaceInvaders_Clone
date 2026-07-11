@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 5
+  HP: 3
 --- !u!114 &214316775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,9 +598,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   SpawnerPoint: {fileID: 629321726}
-  Enemy: {fileID: 6393245202247995209, guid: 8dba715dbc57f8940870b636c4b40b46, type: 3}
-  columnSize: 8
+  Enemy: {fileID: 1476163325616512082, guid: 121e72e976e8eb94cb12f10359708baf, type: 3}
+  columnSize: 9
   rowSize: 4
+  columnMultiplier: 0.7
+  rowMultiplier: 1
   FormationCenter: {fileID: 1594101586}
 --- !u!4 &629321726
 Transform:
@@ -610,7 +613,7 @@ Transform:
   m_GameObject: {fileID: 629321724}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5, y: 0.65, z: 0}
+  m_LocalPosition: {x: -3.5, y: 1.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1065,7 +1068,6 @@ MonoBehaviour:
   speed: 1
   SlideDown: 0.1
   EnemyDeathMultiplier: 0.09
-  farRightChild: {x: 0, y: 0}
 --- !u!50 &1594101588
 Rigidbody2D:
   serializedVersion: 5
