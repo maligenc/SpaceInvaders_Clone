@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3263211478639521182}
   - component: {fileID: 3208452312334565859}
   - component: {fileID: 7267091405217333753}
+  - component: {fileID: -7072017322018144537}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -171,6 +172,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   FirePoint: {fileID: 4401673536083436306}
   Bullet: {fileID: 1245938663462576206, guid: b98323bc5ccbf1940a4578c4dfd4b858, type: 3}
+--- !u!114 &-7072017322018144537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476163325616512082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469e614372a48c14096d16f88b48b85a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &5182097180852319337
 GameObject:
   m_ObjectHideFlags: 0
