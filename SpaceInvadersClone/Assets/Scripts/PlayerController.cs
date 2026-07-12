@@ -6,9 +6,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float speed = 100.0f; // Speed of the player movement
 
-    [SerializeField]
-    private int HP = 3;
-
     private Rigidbody2D rb; // Reference to the player's Rigidbody2D component
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Vector2 moveInput = Vector2.zero; // Initialize movement input to zero

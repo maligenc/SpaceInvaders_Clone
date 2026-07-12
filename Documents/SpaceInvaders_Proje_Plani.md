@@ -93,8 +93,8 @@ Proje şu üç koşul sağlandığında "bitti" sayılır:
 *Not: Bu hafta tek göreve ayrılmıştır, takılmak normaldir. Uzarsa sıkıştırma, kaydır.*
 
 ### Hafta 5 — Ölüm ve skor
-- [ ] Alienlar rastgele aralıklarla aşağı ateş ediyor
-- [ ] Oyuncuya 3 can; vurulunca azalıyor
+- [x] Alienlar rastgele aralıklarla aşağı ateş ediyor
+- [x] Oyuncuya 3 can; vurulunca azalıyor
 - [ ] Skor sistemi + HUD (Canvas + TextMeshPro)
 - [ ] Kaybetme koşulları: canlar biterse VEYA alienlar oyuncu hizasına inerse
 
