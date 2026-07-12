@@ -598,7 +598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   SpawnerPoint: {fileID: 629321726}
-  Enemy: {fileID: 1476163325616512082, guid: 121e72e976e8eb94cb12f10359708baf, type: 3}
+  Enemy: {fileID: 1573613232738043013, guid: 3271ef2aac68c7644aa9b31d630b8626, type: 3}
   columnSize: 9
   rowSize: 4
   columnMultiplier: 0.7
