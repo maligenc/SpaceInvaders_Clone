@@ -9,12 +9,12 @@ public class EnemyWeapon : MonoBehaviour
     [SerializeField]
     private GameObject EnemyBullet;
 
-    private int ShootCalculateWindow=0;
+    private float ShootCalculateWindow=0;
     [SerializeField]
-    private int MinShootingWindow=0;
+    private float MinShootingWindow=0.0f;
     [SerializeField]
-    private int MaxShootingWindow=0;
-    private float TryShootTime;
+    private float MaxShootingWindow=0.0f;
+    private float TryShootTime=1;
 
     void Start()
     {
@@ -25,12 +25,14 @@ public class EnemyWeapon : MonoBehaviour
     {
         if (Time.time  >= TryShootTime)
         {
-            int shoot = Random.Range(0,10);
-            if(shoot <= 3)
+            float shoot = Random.Range(0f,1f);
+            if(shoot <= 1f*(1f/transform.parent.childCount))
             {
                 Shoot();
             }
+            ShootCalculateWindow = Random.Range(MinShootingWindow,MaxShootingWindow);
             TryShootTime += ShootCalculateWindow;
+            
         }
     }
     void Shoot()
