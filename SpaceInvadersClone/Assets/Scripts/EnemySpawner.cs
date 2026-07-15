@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float rowMultiplier = 0.5f;
     [SerializeField] private Transform FormationCenter;
 
-    void Start()
+    void Awake()
     {
         for(int row =0 ; row<rowSize ; row++)
         {
