@@ -3,21 +3,16 @@ using UnityEngine;
 
 public class PlayerLife : MonoBehaviour
 {
-    [SerializeField]
-    private int HP=0;
-    [SerializeField]
-    private GameObject HitAnimation;
-    [SerializeField]
-    private GameObject DeathAnimation;
+    public int HP=0;
+    [SerializeField] private GameObject HitAnimation;
+    [SerializeField] private GameObject DeathAnimation;
     private Rigidbody2D rb;
-
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (HP==0)

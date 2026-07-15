@@ -3,18 +3,13 @@ using UnityEngine;
 public class FormationMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-
-    [SerializeField]
-    private float speed = 10f;
-    [SerializeField]
-    private float SlideDown = 0.2f;
-    [SerializeField]
-    private float EnemyDeathMultiplier = 0.03125f;
-
     private int enemycount=0;
     private Vector2 direction = Vector2.right;
     private Vector2 leadingEdgeX = Vector2.zero;
-    
+
+    [SerializeField] private float speed = 10f;
+    [SerializeField] private float SlideDown = 0.2f;
+    [SerializeField] private float EnemyDeathMultiplier = 0.03125f;
 
     void Start()
     {
