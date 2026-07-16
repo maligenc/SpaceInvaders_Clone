@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class FormationMovement : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class FormationMovement : MonoBehaviour
 
     void Update()
     {
+        leadingEdgeX.y = float.MaxValue;
         if (direction == Vector2.right)
         {
             leadingEdgeX.x=float.MinValue;
@@ -26,6 +28,14 @@ public class FormationMovement : MonoBehaviour
         else
         {
             leadingEdgeX.x=float.MaxValue;
+        }
+        foreach(Transform child in transform)
+        {
+            if(child.position.y < leadingEdgeX.y)
+            {
+                //when leadingEdgeX.y == -3.5 trigger event lost 
+                leadingEdgeX.y = child.position.y;
+            }
         }
         foreach (Transform child in transform)
         {
