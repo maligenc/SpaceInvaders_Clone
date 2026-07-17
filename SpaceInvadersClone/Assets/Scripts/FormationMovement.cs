@@ -5,7 +5,7 @@ public class FormationMovement : MonoBehaviour
     private Rigidbody2D rb;
 
     [SerializeField]
-    private float speed = 10f;
+    private float speed = 9f;
     [SerializeField]
     private float SlideDown = 0.2f;
     [SerializeField]
