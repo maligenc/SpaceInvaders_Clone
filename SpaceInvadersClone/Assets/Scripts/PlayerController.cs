@@ -3,22 +3,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 100.0f; // Speed of the player movement
+    [SerializeField] private float speed = 100.0f; 
+    private Rigidbody2D rb; 
+    private Vector2 moveInput = Vector2.zero;
 
-    private Rigidbody2D rb; // Reference to the player's Rigidbody2D component
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private Vector2 moveInput = Vector2.zero; // Initialize movement input to zero
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to the player
+        rb = GetComponent<Rigidbody2D>();
         if (rb == null)
         {
             Debug.LogError("Rigidbody2D component not found on the player object.");
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         //Left movement

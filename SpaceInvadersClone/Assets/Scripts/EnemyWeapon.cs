@@ -3,17 +3,11 @@ using UnityEngine;
 
 public class EnemyWeapon : MonoBehaviour
 {
-    [SerializeField]
-    private Transform FirePoint;
-
-    [SerializeField]
-    private GameObject EnemyBullet;
-
+    [SerializeField] private Transform FirePoint;
+    [SerializeField] private GameObject EnemyBullet;
+    [SerializeField] private float MinShootingWindow=0.0f;
+    [SerializeField] private float MaxShootingWindow=0.0f;
     private float ShootCalculateWindow=0;
-    [SerializeField]
-    private float MinShootingWindow=0.0f;
-    [SerializeField]
-    private float MaxShootingWindow=0.0f;
     private float TryShootTime=1;
 
     void Start()

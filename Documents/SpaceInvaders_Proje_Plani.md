@@ -95,7 +95,7 @@ Proje şu üç koşul sağlandığında "bitti" sayılır:
 ### Hafta 5 — Ölüm ve skor
 - [x] Alienlar rastgele aralıklarla aşağı ateş ediyor
 - [x] Oyuncuya 3 can; vurulunca azalıyor
-- [ ] Skor sistemi + HUD (Canvas + TextMeshPro)
+- [x] Skor sistemi + HUD (Canvas + TextMeshPro)
 - [ ] Kaybetme koşulları: canlar biterse VEYA alienlar oyuncu hizasına inerse
 
 **Bitti kriteri:** Oyun kazanılabiliyor ve kaybedilebiliyor.

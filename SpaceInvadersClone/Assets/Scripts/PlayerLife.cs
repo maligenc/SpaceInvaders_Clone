@@ -3,25 +3,23 @@ using UnityEngine;
 
 public class PlayerLife : MonoBehaviour
 {
-    [SerializeField]
-    private int HP=0;
-    [SerializeField]
-    private GameObject HitAnimation;
-    [SerializeField]
-    private GameObject DeathAnimation;
+    public int HP=0;
+    [SerializeField] private GameObject HitAnimation;
+    [SerializeField] private GameObject DeathAnimation;
     private Rigidbody2D rb;
-
+    private SpriteRenderer sr;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (HP==0)
         {
+            //sr.enabled=false;
             Destroy(gameObject);
             Instantiate(DeathAnimation,transform.position,transform.rotation);
         }

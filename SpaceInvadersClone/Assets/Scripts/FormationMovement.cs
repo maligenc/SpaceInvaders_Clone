@@ -1,20 +1,16 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class FormationMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-
-    [SerializeField]
-    private float speed = 9f;
-    [SerializeField]
-    private float SlideDown = 0.2f;
-    [SerializeField]
-    private float EnemyDeathMultiplier = 0.03125f;
-
     private int enemycount=0;
     private Vector2 direction = Vector2.right;
     private Vector2 leadingEdgeX = Vector2.zero;
-    
+
+    [SerializeField] private float speed = 10f;
+    [SerializeField] private float SlideDown = 0.2f;
+    [SerializeField] private float EnemyDeathMultiplier = 0.03125f;
 
     void Start()
     {
@@ -24,6 +20,7 @@ public class FormationMovement : MonoBehaviour
 
     void Update()
     {
+        leadingEdgeX.y = float.MaxValue;
         if (direction == Vector2.right)
         {
             leadingEdgeX.x=float.MinValue;
@@ -31,6 +28,14 @@ public class FormationMovement : MonoBehaviour
         else
         {
             leadingEdgeX.x=float.MaxValue;
+        }
+        foreach(Transform child in transform)
+        {
+            if(child.position.y < leadingEdgeX.y)
+            {
+                //when leadingEdgeX.y == -3.5 trigger event lost 
+                leadingEdgeX.y = child.position.y;
+            }
         }
         foreach (Transform child in transform)
         {

@@ -2,28 +2,15 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField]
-    private Transform SpawnerPoint;
+    [SerializeField] private Transform SpawnerPoint;
+    [SerializeField] private GameObject Enemy;
+    [SerializeField] private int columnSize;
+    [SerializeField] private int rowSize;
+    [SerializeField] private float  columnMultiplier = 0.5f;
+    [SerializeField] private float rowMultiplier = 0.5f;
+    [SerializeField] private Transform FormationCenter;
 
-    [SerializeField]
-    private GameObject Enemy;
-
-    [SerializeField]
-    private int columnSize;
-
-    [SerializeField]
-    private int rowSize;
-
-    [SerializeField]
-    private float  columnMultiplier = 0.5f;
-
-    [SerializeField]
-    private float rowMultiplier = 0.5f;
-
-    [SerializeField]
-    private Transform FormationCenter;
-
-    void Start()
+    void Awake()
     {
         for(int row =0 ; row<rowSize ; row++)
         {
