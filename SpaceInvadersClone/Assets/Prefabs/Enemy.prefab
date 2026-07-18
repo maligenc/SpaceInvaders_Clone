@@ -203,7 +203,7 @@ MonoBehaviour:
   FirePoint: {fileID: 516394490405102761}
   EnemyBullet: {fileID: 1245938663462576206, guid: b98323bc5ccbf1940a4578c4dfd4b858, type: 3}
   MinShootingWindow: 0
-  MaxShootingWindow: 3
+  MaxShootingWindow: 2
 --- !u!1 &4539542224296605777
 GameObject:
   m_ObjectHideFlags: 0

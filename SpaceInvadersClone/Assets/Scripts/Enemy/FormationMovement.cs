@@ -8,6 +8,8 @@ public class FormationMovement : MonoBehaviour
     private Vector2 direction = Vector2.right;
     private Vector2 leadingEdgeX = Vector2.zero;
 
+    [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerLife playerLife;
     [SerializeField] private float speed = 10f;
     [SerializeField] private float SlideDown = 0.2f;
     [SerializeField] private float EnemyDeathMultiplier = 0.03125f;
@@ -55,7 +57,6 @@ public class FormationMovement : MonoBehaviour
                 }
             }
         }
-
     }
 
     void FixedUpdate()
@@ -77,6 +78,11 @@ public class FormationMovement : MonoBehaviour
         }
         Vector2 Movement = direction *RealSpeed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + Movement + slide);
+
+        if (leadingEdgeX.y <= playerController.gameObject.transform.position.y+(playerController.gameObject.transform.localScale.y/2))
+        {
+            playerLife.HP = 0;
+        }
 
     }
 
