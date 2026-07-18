@@ -12,11 +12,6 @@ public class HealtDisplay : MonoBehaviour
     [SerializeField] private Image[] ships;
     public PlayerLife playerLife;
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         healt = playerLife.HP;

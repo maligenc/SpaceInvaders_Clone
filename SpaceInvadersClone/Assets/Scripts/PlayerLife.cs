@@ -17,7 +17,7 @@ public class PlayerLife : MonoBehaviour
 
     void Update()
     {
-        if (HP==0)
+        if (HP<=0)
         {
             //sr.enabled=false;
             Destroy(gameObject);
