@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,10 +8,11 @@ public class Weapon : MonoBehaviour
     public Transform FirePoint;
     public GameObject Bullet;
     private float fireTime = -0.5f;
+    [SerializeField] private float fireWindow = 0f;
      
     void Update()
     {
-        if (Keyboard.current.spaceKey.isPressed && Time.time >fireTime + 0.5f)
+        if (Keyboard.current.spaceKey.isPressed && Time.time >fireTime + fireWindow)
         {
             Shoot();
             fireTime = Time.time;

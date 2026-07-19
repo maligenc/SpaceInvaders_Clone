@@ -1222,7 +1222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   playerLife: {fileID: 214316777}
   formationMovement: {fileID: 1594101587}
-  destinationRoom: Level2
+  destinationRoom: WinScreen
   playerShip: {fileID: 214316769}
 --- !u!4 &1252572676
 Transform:

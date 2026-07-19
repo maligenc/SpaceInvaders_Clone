@@ -318,7 +318,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   FirePoint: {fileID: 1034154498}
   Bullet: {fileID: 1181723622882221187, guid: a1c45e6b4b16a4242a2e410a7eb24937, type: 3}
-  fireWindow: 0.02
 --- !u!114 &214316776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a31ecb9181764c4290100052b441c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLife
-  HP: 3
+  HP: 1
   HitAnimation: {fileID: 8805079396735959963, guid: a3544d73b11a537498bfcbb4f5fe2d73, type: 3}
   DeathAnimation: {fileID: 5061809976171441707, guid: e00743bbda3858c44988aa7991726bd7, type: 3}
   playerDead: 0
@@ -1222,7 +1221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   playerLife: {fileID: 214316777}
   formationMovement: {fileID: 1594101587}
-  destinationRoom: Level2
   playerShip: {fileID: 214316769}
 --- !u!4 &1252572676
 Transform:

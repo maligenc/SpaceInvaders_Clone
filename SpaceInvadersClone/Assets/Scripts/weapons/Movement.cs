@@ -12,7 +12,6 @@ public class Movement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D HitInfo)
     {
-        Debug.Log(HitInfo.name);
         Destroy(gameObject);
     }
 }
