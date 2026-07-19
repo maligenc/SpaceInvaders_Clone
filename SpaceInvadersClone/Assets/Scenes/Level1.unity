@@ -1189,6 +1189,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1198324198}
   m_CullTransparentMesh: 1
+--- !u!1 &1252572674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1252572676}
+  - component: {fileID: 1252572675}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1252572675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252572674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec2aac4c666fe3a4a9c30f6fd1cc635a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
+  playerLife: {fileID: 214316777}
+  formationMovement: {fileID: 1594101587}
+  playerShip: {fileID: 214316769}
+--- !u!4 &1252572676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252572674}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.01131, y: 0.03449, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1322326484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,6 +1559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9e37c2c69c50e408de3c475e62a45c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FormationMovement
+  isAllEnemyDead: 0
   playerController: {fileID: 214316774}
   playerLife: {fileID: 214316777}
   speed: 1
@@ -2022,3 +2070,4 @@ SceneRoots:
   - {fileID: 969428936}
   - {fileID: 1172544077}
   - {fileID: 1157944866}
+  - {fileID: 1252572676}

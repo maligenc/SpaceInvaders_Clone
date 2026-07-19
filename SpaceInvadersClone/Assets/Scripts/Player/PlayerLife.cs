@@ -7,6 +7,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private GameObject HitAnimation;
     [SerializeField] private GameObject DeathAnimation;
     private Rigidbody2D rb;
+    public bool playerDead = false;
     private SpriteRenderer sr;
 
     void Start()
@@ -19,8 +20,7 @@ public class PlayerLife : MonoBehaviour
     {
         if (HP<=0)
         {
-            //sr.enabled=false;
-            Destroy(gameObject);
+            playerDead = true;
             Instantiate(DeathAnimation,transform.position,transform.rotation);
         }
 

@@ -4,9 +4,10 @@ using UnityEngine.Rendering;
 public class FormationMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private int enemycount=0;
+    private int enemycount;
     private Vector2 direction = Vector2.right;
     private Vector2 leadingEdgeX = Vector2.zero;
+    public bool isAllEnemyDead = false;
 
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerLife playerLife;
@@ -22,6 +23,7 @@ public class FormationMovement : MonoBehaviour
 
     void Update()
     {
+
         leadingEdgeX.y = float.MaxValue;
         if (direction == Vector2.right)
         {
@@ -56,6 +58,10 @@ public class FormationMovement : MonoBehaviour
                     leadingEdgeX.x=child.position.x;
                 }
             }
+        }
+        if(!isAllEnemyDead && transform.childCount == 0)
+        {
+            isAllEnemyDead = true;
         }
     }
 

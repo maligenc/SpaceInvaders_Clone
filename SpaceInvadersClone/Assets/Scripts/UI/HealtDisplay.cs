@@ -14,25 +14,29 @@ public class HealtDisplay : MonoBehaviour
 
     void Update()
     {
-        healt = playerLife.HP;
-        for (int i=0 ; i <ships.Length;i++)
+        if (!playerLife.playerDead)
         {
-            if(i < healt)
+            healt = playerLife.HP;
+            for (int i=0 ; i <ships.Length;i++)
             {
-                ships[i].sprite=spareShip;
-            }
-            else
-            {
-                ships[i].sprite=destroyedShip;
-            }
-            if (i<maxHealt)
-            {
-                ships[i].enabled = true; 
-            }
-            else
-            {
-                ships[i].enabled=false;
+                if(i < healt)
+                {
+                    ships[i].sprite=spareShip;
+                }
+                else
+                {
+                    ships[i].sprite=destroyedShip;
+                }
+                if (i<maxHealt)
+                {
+                    ships[i].enabled = true; 
+                }
+                else
+                {
+                    ships[i].enabled=false;
+                }
             }
         }
+
     }
 }

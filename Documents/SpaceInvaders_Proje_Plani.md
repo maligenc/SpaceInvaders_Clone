@@ -96,14 +96,15 @@ Proje şu üç koşul sağlandığında "bitti" sayılır:
 - [x] Alienlar rastgele aralıklarla aşağı ateş ediyor
 - [x] Oyuncuya 3 can; vurulunca azalıyor
 - [x] Skor sistemi + HUD (Canvas + TextMeshPro)
-- [ ] Kaybetme koşulları: canlar biterse VEYA alienlar oyuncu hizasına inerse
+- [x] Kaybetme koşulları: canlar biterse VEYA alienlar oyuncu hizasına inerse
 
 **Bitti kriteri:** Oyun kazanılabiliyor ve kaybedilebiliyor.
 
 ### Hafta 6 — Oyun döngüsünü kapat
-- [ ] Akış: Start menüsü → oyun → Game Over/Congrats → yeniden başlat
+- [x] Akış: Start menüsü → oyun → Game Over/Congrats → yeniden başlat
 - [ ] 3 stage yapısı; her stage'de hız artışı; 3. stage sonu → Congrats
 - [ ] Sesler: ateş, patlama, game over (freesound.org / sfxr)
+
 
 **Bitti kriteri:** Oyun baştan sona, elle müdahalesiz oynanabiliyor. **Tüm Must Have'ler bu hafta sonunda kapanmış olmalı.**
 
