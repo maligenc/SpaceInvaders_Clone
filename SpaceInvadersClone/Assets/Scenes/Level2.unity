@@ -318,7 +318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   FirePoint: {fileID: 1034154498}
   Bullet: {fileID: 1181723622882221187, guid: a1c45e6b4b16a4242a2e410a7eb24937, type: 3}
-  fireWindow: 0.02
+  fireWindow: 0.5
 --- !u!114 &214316776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,7 +766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   SpawnerPoint: {fileID: 629321726}
   Enemy: {fileID: 1573613232738043013, guid: 3271ef2aac68c7644aa9b31d630b8626, type: 3}
-  columnSize: 9
+  columnSize: 10
   rowSize: 4
   columnMultiplier: 1
   rowMultiplier: 1
@@ -780,7 +780,7 @@ Transform:
   m_GameObject: {fileID: 629321724}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5, y: 0.65, z: 0}
+  m_LocalPosition: {x: -4, y: 0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1567,7 +1567,7 @@ MonoBehaviour:
   playerLife: {fileID: 214316777}
   speed: 1
   SlideDown: 0.2
-  EnemyDeathMultiplier: 0.09
+  EnemyDeathMultiplier: 0.12
 --- !u!50 &1594101588
 Rigidbody2D:
   serializedVersion: 5

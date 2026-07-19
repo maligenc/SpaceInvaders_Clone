@@ -318,7 +318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   FirePoint: {fileID: 1034154498}
   Bullet: {fileID: 1181723622882221187, guid: a1c45e6b4b16a4242a2e410a7eb24937, type: 3}
-  fireWindow: 0.02
+  fireWindow: 0.5
 --- !u!114 &214316776
 MonoBehaviour:
   m_ObjectHideFlags: 0

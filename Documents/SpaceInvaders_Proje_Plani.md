@@ -178,6 +178,9 @@ Proje şu üç koşul sağlandığında "bitti" sayılır:
 > Kapsam dışı fikirler buraya. Bu projede YAPILMAZLAR.
 
 - (boş — ilk "power-up ekleseydim" anında burası dolacak)
+- [ ] streak counter
+- [ ] Score bearing
+
 
 ---
 
