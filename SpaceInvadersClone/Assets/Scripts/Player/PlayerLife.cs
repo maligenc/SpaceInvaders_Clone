@@ -6,9 +6,11 @@ public class PlayerLife : MonoBehaviour
     public int HP=0;
     [SerializeField] private GameObject HitAnimation;
     [SerializeField] private GameObject DeathAnimation;
+    [SerializeField] private AudioManager audioManager;
     private Rigidbody2D rb;
     public bool playerDead = false;
     private SpriteRenderer sr;
+    
 
     void Start()
     {
@@ -27,6 +29,7 @@ public class PlayerLife : MonoBehaviour
     }
     void OnTriggerEnter2D()
     {
+        audioManager.playSFX(audioManager.playerHit);
         HP -=1;
         if (HP != 0)
         {

@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyBulletMovement : MonoBehaviour
 {
     private Rigidbody2D BulletBody;
-    private float speed = -20f;
+    private float speed = -10f;
     void Start()
     {
         BulletBody = GetComponent<Rigidbody2D>();

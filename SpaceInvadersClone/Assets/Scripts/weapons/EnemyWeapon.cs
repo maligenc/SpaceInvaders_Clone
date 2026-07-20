@@ -7,9 +7,15 @@ public class EnemyWeapon : MonoBehaviour
     [SerializeField] private GameObject EnemyBullet;
     [SerializeField] private float MinShootingWindow=0.0f;
     [SerializeField] private float MaxShootingWindow=0.0f;
+    [SerializeField] private AudioManager audioManager;
+
     private float ShootCalculateWindow=0;
     private float TryShootTime=1;
 
+    void Awake()
+    {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
     void Start()
     {
         ShootCalculateWindow = Random.Range(MinShootingWindow,MaxShootingWindow);
@@ -22,6 +28,7 @@ public class EnemyWeapon : MonoBehaviour
             float shoot = Random.Range(0f,1f);
             if(shoot <= 1f*(1f/transform.parent.childCount))
             {
+                audioManager.playSFX(audioManager.enemyShoot);
                 Shoot();
             }
             ShootCalculateWindow = Random.Range(MinShootingWindow,MaxShootingWindow);
