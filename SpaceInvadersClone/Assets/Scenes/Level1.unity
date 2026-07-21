@@ -344,10 +344,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a31ecb9181764c4290100052b441c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLife
-  HP: 3
+  HP: 100
   HitAnimation: {fileID: 8805079396735959963, guid: a3544d73b11a537498bfcbb4f5fe2d73, type: 3}
   DeathAnimation: {fileID: 5061809976171441707, guid: e00743bbda3858c44988aa7991726bd7, type: 3}
   audioManager: {fileID: 1784490541}
+  cameraShake: {fileID: 519420033}
   playerDead: 0
 --- !u!1 &512952936
 GameObject:
@@ -436,6 +437,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -561,6 +563,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16618038fd2a1d741b6d0434db76593b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraShake
+  duration: 0.5
 --- !u!1 &589696753
 GameObject:
   m_ObjectHideFlags: 0

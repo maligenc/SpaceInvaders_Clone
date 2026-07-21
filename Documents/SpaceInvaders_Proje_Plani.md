@@ -103,7 +103,7 @@ Proje şu üç koşul sağlandığında "bitti" sayılır:
 ### Hafta 6 — Oyun döngüsünü kapat
 - [x] Akış: Start menüsü → oyun → Game Over/Congrats → yeniden başlat
 - [x] 3 stage yapısı; her stage'de hız artışı; 3. stage sonu → Congrats
-- [ ] Sesler: ateş, patlama, game over (freesound.org / sfxr)
+- [x] Sesler: ateş, patlama, game over (freesound.org / sfxr)
 
 
 **Bitti kriteri:** Oyun baştan sona, elle müdahalesiz oynanabiliyor. **Tüm Must Have'ler bu hafta sonunda kapanmış olmalı.**

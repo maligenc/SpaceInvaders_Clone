@@ -7,6 +7,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private GameObject HitAnimation;
     [SerializeField] private GameObject DeathAnimation;
     [SerializeField] private AudioManager audioManager;
+    [SerializeField] private CameraShake cameraShake;
     private Rigidbody2D rb;
     public bool playerDead = false;
     private SpriteRenderer sr;
@@ -30,6 +31,7 @@ public class PlayerLife : MonoBehaviour
     void OnTriggerEnter2D()
     {
         audioManager.playSFX(audioManager.playerHit);
+        cameraShake.ShakeCamera();
         HP -=1;
         if (HP != 0)
         {
