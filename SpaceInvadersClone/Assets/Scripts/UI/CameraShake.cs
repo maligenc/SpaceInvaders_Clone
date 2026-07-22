@@ -4,7 +4,7 @@ using UnityEngine;
 public class CameraShake : MonoBehaviour
 {
     [SerializeField]private float duration;
-    //public AnimationCurve animationCurve;
+    public AnimationCurve animationCurve;
 
     public void ShakeCamera()
     {

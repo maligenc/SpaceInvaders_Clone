@@ -110,8 +110,8 @@ Proje şu üç koşul sağlandığında "bitti" sayılır:
 
 ### Hafta 7 — Cila + Should Have penceresi
 - [ ] Patlama efekti (particle veya sprite animasyonu)
-- [ ] Kenney.nl sprite paketiyle görsel yenileme (kendin çizme!)
-- [ ] 1-2 "juice" dokunuşu (ekran titremesi vb.)
+- [x] Kenney.nl sprite paketiyle görsel yenileme (kendin çizme!)
+- [x] 1-2 "juice" dokunuşu (ekran titremesi vb.)
 - [ ] İlk playtest: bir arkadaşa oynat, not al
 - [ ] *Vakit kalırsa Should Have sırası: özel atış → bariyerler → ekstra can → alien özel saldırısı*
 

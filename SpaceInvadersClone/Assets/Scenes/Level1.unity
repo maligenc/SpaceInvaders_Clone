@@ -344,7 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a31ecb9181764c4290100052b441c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLife
-  HP: 100
+  HP: 3
   HitAnimation: {fileID: 8805079396735959963, guid: a3544d73b11a537498bfcbb4f5fe2d73, type: 3}
   DeathAnimation: {fileID: 5061809976171441707, guid: e00743bbda3858c44988aa7991726bd7, type: 3}
   audioManager: {fileID: 1784490541}
@@ -575,7 +575,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16618038fd2a1d741b6d0434db76593b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraShake
-  duration: 0.5
+  duration: 0
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 8.906833
+      outSlope: 8.906833
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.04629697
+      value: 0.41235936
+      inSlope: 1.3759251
+      outSlope: 1.3759251
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.11295424
+    - serializedVersion: 3
+      time: 0.3112615
+      value: 0.05221717
+      inSlope: 1.6115185
+      outSlope: 1.6115185
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.24524078
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.34468007
+      value: 0.31689027
+      inSlope: 1.0978823
+      outSlope: 1.0978823
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6060222
+      value: 0.105608836
+      inSlope: 0.99721116
+      outSlope: 0.99721116
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7191282
+      value: 0.23142105
+      inSlope: 0.3476608
+      outSlope: 0.3476608
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.3249667
+    - serializedVersion: 3
+      time: 0.9970398
+      value: 0.21430588
+      inSlope: -0.061584964
+      outSlope: -0.061584964
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &589696753
 GameObject:
   m_ObjectHideFlags: 0
