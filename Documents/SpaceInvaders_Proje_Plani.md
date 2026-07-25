@@ -32,14 +32,14 @@ Proje şu üç koşul sağlandığında "bitti" sayılır:
 
 ### Must Have
 - [ ] Oyun WebGL olarak build alınıp itch.io'da yayınlanacak
-- [ ] UI: Start ana menüsü (yalnızca "Start" butonu)
-- [ ] UI: Oyun içi HUD (skor + can)
-- [ ] UI: Game Over ekranı (replay butonu ile)
-- [ ] UI: Oyun tamamlanınca Congrats ekranı
-- [ ] Oyun en az 3 stage içerecek (3. stage sonunda oyun biter → Congrats)
-- [ ] Alienlar her stage'de daha hızlı hareket edecek
-- [ ] Her alien tek atışta ölecek
-- [ ] Alienlar oyuncuya ateş edecek
+- [x] UI: Start ana menüsü (yalnızca "Start" butonu)
+- [x] UI: Oyun içi HUD (skor + can)
+- [x] UI: Game Over ekranı (replay butonu ile)
+- [x] UI: Oyun tamamlanınca Congrats ekranı
+- [x] Oyun en az 3 stage içerecek (3. stage sonunda oyun biter → Congrats)
+- [x] Alienlar her stage'de daha hızlı hareket edecek
+- [x] Her alien tek atışta ölecek
+- [x] Alienlar oyuncuya ateş edecek
 
 ### Should Have
 - [ ] Oyuncu ile alienlar arasında bariyerler (4 vuruş dayanır, sonra yıkılır)
