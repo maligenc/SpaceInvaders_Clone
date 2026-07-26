@@ -318,7 +318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   FirePoint: {fileID: 1034154498}
   Bullet: {fileID: 1181723622882221187, guid: a1c45e6b4b16a4242a2e410a7eb24937, type: 3}
-  fireWindow: 0.5
+  fireWindow: 0.1
   audioManager: {fileID: 1784490541}
 --- !u!114 &214316776
 MonoBehaviour:
@@ -1345,7 +1345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   playerLife: {fileID: 214316777}
   formationMovement: {fileID: 1594101587}
-  destinationRoom: Level2
+  destinationRoom: Start_Scene
   playerShip: {fileID: 214316769}
 --- !u!4 &1252572676
 Transform:
