@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DontDestroy : MonoBehaviour
 {
@@ -14,5 +15,13 @@ public class DontDestroy : MonoBehaviour
             conveyorBelt = this;
         }
         DontDestroyOnLoad(gameObject);
+
+    }
+    void Update()
+    {
+        if(SceneManager.GetActiveScene().name == "You_Lose")
+        {
+            Destroy(gameObject);
+        } 
     }
 }
