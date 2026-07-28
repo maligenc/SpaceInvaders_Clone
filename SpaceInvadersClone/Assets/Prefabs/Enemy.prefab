@@ -44,7 +44,8 @@ GameObject:
   - component: {fileID: 6074011111664622425}
   - component: {fileID: 8131674229638358420}
   - component: {fileID: 6037966977567695498}
-  - component: {fileID: 8488846883743632353}
+  - component: {fileID: -3951436665909903162}
+  - component: {fileID: 2020454619695459853}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -207,7 +208,7 @@ MonoBehaviour:
   MinShootingWindow: 0
   MaxShootingWindow: 3
   audioManager: {fileID: 0}
---- !u!50 &8488846883743632353
+--- !u!50 &-3951436665909903162
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -222,7 +223,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -234,6 +235,72 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2020454619695459853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573613232738043013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2810255f0c6ae4fb2a17f378a02bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GetInScene
+  initalSpeed: -2
+  enemySpaceShip: {fileID: 0}
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.0047747856
+      outSlope: 0.0047747856
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.50714284
+      value: 1.0024215
+      inSlope: -0.041687183
+      outSlope: -0.041687183
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7434797
+      value: 0.9815886
+      inSlope: -0.44336018
+      outSlope: -0.44336018
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8348071
+      value: 0.9086572
+      inSlope: -3.1034465
+      outSlope: -3.1034465
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0023777
+      value: 0.0023812056
+      inSlope: -5.408322
+      outSlope: -5.408322
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  duration: 0
 --- !u!1 &4539542224296605777
 GameObject:
   m_ObjectHideFlags: 0
