@@ -10,6 +10,13 @@ public class EnemyBulletMovement : MonoBehaviour
         BulletBody.linearVelocityY = speed;
     }
 
+    void Update()
+    {
+        if(gameObject.transform.position.y <= -5.5f)
+        {
+            Destroy(gameObject);
+        }
+    }
     void OnTriggerEnter2D(Collider2D HitInfo)
     {
         Destroy(gameObject);

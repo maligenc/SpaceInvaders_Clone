@@ -85,10 +85,10 @@ public class FormationMovement : MonoBehaviour
         Vector2 Movement = direction *RealSpeed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + Movement + slide);
 
-        if (leadingEdgeX.y <= playerController.gameObject.transform.position.y+(playerController.gameObject.transform.localScale.y/2))
-        {
-            playerLife.HP = 0;
-        }
+        // if (leadingEdgeX.y <= playerController.gameObject.transform.position.y+(playerController.gameObject.transform.localScale.y/2))
+        // {
+        //     playerLife.HP = 0;
+        // }
 
     }
 
