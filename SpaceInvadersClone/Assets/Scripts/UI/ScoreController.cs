@@ -4,7 +4,7 @@ using TMPro;
 
 public class ScoreController : MonoBehaviour
 {
-    [SerializeField] private int pointMultiplier=0;
+    [SerializeField] private int killPoint=0;
     private TMP_Text Score;
     public Transform formationTransfrom;
     private int initialEnemyCount=0;
@@ -18,7 +18,7 @@ public class ScoreController : MonoBehaviour
     void Update()
     {
         int killedEnemyCount = initialEnemyCount-formationTransfrom.childCount;
-        int score = killedEnemyCount*pointMultiplier;
+        int score = killedEnemyCount*killPoint;
         Score.text = $"Score:{score}";    
     }
 
