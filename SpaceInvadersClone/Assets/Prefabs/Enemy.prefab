@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8590162049b8b3a418af22ee4e9ad65d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Box_death
+  scoreManager: {fileID: 0}
   AnimationCenter: {fileID: 35949224396040022}
   Corpse: {fileID: 5061809976171441707, guid: e00743bbda3858c44988aa7991726bd7, type: 3}
 --- !u!114 &6037966977567695498
