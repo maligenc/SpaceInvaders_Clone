@@ -28,6 +28,7 @@ public class ScoreManager : MonoBehaviour
     }
     public void resetMultiplier()
     {
+        streak = 5;
         scoreMultiplier = 1.0f;
     }
 }
