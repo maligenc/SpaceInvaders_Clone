@@ -8,6 +8,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private GameObject DeathAnimation;
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private CameraShake cameraShake;
+    private ScoreManager scoreManager;
     private Rigidbody2D rb;
     public bool playerDead = false;
     private SpriteRenderer sr;
@@ -17,6 +18,7 @@ public class PlayerLife : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        scoreManager = GameObject.Find("GameManager").GetComponent<ScoreManager>();
     }
 
     void Update()
@@ -33,6 +35,7 @@ public class PlayerLife : MonoBehaviour
         audioManager.playSFX(audioManager.playerHit);
         cameraShake.ShakeCamera();
         HP -=1;
+        scoreManager.resetMultiplier();
         if (HP != 0)
         {
             Instantiate(HitAnimation,transform.position,transform.rotation);

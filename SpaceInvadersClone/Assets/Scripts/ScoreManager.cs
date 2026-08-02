@@ -26,4 +26,8 @@ public class ScoreManager : MonoBehaviour
     {
         totalScore += scoreMultiplier * killPoint;
     }
+    public void resetMultiplier()
+    {
+        scoreMultiplier = 1.0f;
+    }
 }

@@ -16,6 +16,7 @@ public class ScoreController : MonoBehaviour
     {
         Score = GetComponent<TMP_Text>();
         initialEnemyCount=formationTransfrom.childCount;
+        scoreManager = GameObject.Find("GameManager").GetComponent<ScoreManager>();
     }
 
     void Update()
