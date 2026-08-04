@@ -5,9 +5,7 @@ using TMPro;
 public class ScoreController : MonoBehaviour
 {
     [SerializeField]public ScoreManager scoreManager;
-    [SerializeField] private int killPoint=0;
     private TMP_Text Score;
-    public Transform formationTransfrom;
 
 
 
