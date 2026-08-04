@@ -7,8 +7,6 @@ public class ScoreController : MonoBehaviour
     [SerializeField]public ScoreManager scoreManager;
     private TMP_Text Score;
 
-
-
     void Start()
     {
         Score = GetComponent<TMP_Text>();
