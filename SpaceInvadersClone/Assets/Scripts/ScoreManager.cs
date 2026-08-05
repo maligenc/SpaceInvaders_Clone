@@ -3,7 +3,7 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private float killPoint = 10;
-    [SerializeField] private float multiplierFactor = 0.3f;
+    [SerializeField] public float multiplierFactor = 0.3f;
     public float scoreMultiplier = 1.0f;
     public float totalScore = 0.0f;
     public int streak = 5; 
