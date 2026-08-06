@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -6,8 +7,26 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] public float multiplierFactor = 0.3f;
     public float scoreMultiplier = 1.0f;
     public float totalScore = 0.0f;
-    public int streak = 5; 
+    public int streak = 5;
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += ResetScore;
+    }
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= ResetScore;
+    }
+
+    void ResetScore(Scene scene,LoadSceneMode loadSceneMode)
+    {
+        if (scene.name == "Level1")
+        {
+            streak = 5;
+            totalScore = 0.0f;
+            scoreMultiplier = 1.0f;
+        }
+    }
 
     public void addUpPoint()
     {
