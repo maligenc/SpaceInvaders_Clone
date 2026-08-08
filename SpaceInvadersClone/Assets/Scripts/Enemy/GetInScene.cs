@@ -6,7 +6,7 @@ public class GetInScene : MonoBehaviour
     [SerializeField] private float initalSpeed = -2f;
     [SerializeField] private Rigidbody2D enemySpaceShip;
     [SerializeField] private AnimationCurve curve;
-    [SerializeField] private float duration = 0f;
+    [SerializeField] private float duration = 2f;
 
 
     void Start()
