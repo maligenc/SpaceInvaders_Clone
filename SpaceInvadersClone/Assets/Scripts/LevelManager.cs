@@ -34,9 +34,9 @@ public class LevelManager : MonoBehaviour
             Destroy(playerShip);
             SceneManager.LoadScene("You_Lose");
         }
-        else if (formationMovement.isAllEnemyDead)
-        {
-            SceneManager.LoadScene(destinationRoom);
-        }
+        // else if (formationMovement.isAllEnemyDead)
+        // {
+        //     SceneManager.LoadScene(destinationRoom);
+        // }
     }
 }

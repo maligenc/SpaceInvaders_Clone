@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -8,6 +9,7 @@ public class FormationMovement : MonoBehaviour
     private Vector2 direction = Vector2.right;
     private Vector2 leadingEdgeX = Vector2.zero;
     public bool isAllEnemyDead = false;
+    private WaveManager waveManager;
 
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerLife playerLife;
@@ -15,15 +17,23 @@ public class FormationMovement : MonoBehaviour
     [SerializeField] private float SlideDown = 0.2f;
     [SerializeField] private float EnemyDeathMultiplier = 0.03125f;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         enemycount = transform.childCount;
+        waveManager = GameObject.Find("GameManager").GetComponent<WaveManager>();
+    }
+    void OnEnable()
+    {
+        waveManager.nextWave += ResetFormationPositionAndStop;
+    }
+    void OnDisable()
+    {
+        waveManager.nextWave -=ResetFormationPositionAndStop;
     }
 
     void Update()
     {
-
         leadingEdgeX.y = float.MaxValue;
         if (direction == Vector2.right)
         {
@@ -90,6 +100,13 @@ public class FormationMovement : MonoBehaviour
             playerLife.HP = 0;
         }
 
+    }
+    
+    void ResetFormationPositionAndStop(float wave)
+    {
+        speed = 0f;
+        transform.position = new Vector3(0f,2.15f,0);
+        isAllEnemyDead = false;
     }
 
 }
