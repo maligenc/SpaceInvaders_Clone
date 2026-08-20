@@ -9,6 +9,7 @@ public class FormationMovement : MonoBehaviour
     private Vector2 direction = Vector2.right;
     private Vector2 leadingEdgeX = Vector2.zero;
     public bool isAllEnemyDead = false;
+    public bool checkAgain = true;
     private WaveManager waveManager;
 
     [SerializeField] private PlayerController playerController;
@@ -69,7 +70,7 @@ public class FormationMovement : MonoBehaviour
                 }
             }
         }
-        if(!isAllEnemyDead && transform.childCount == 0)
+        if(!isAllEnemyDead && transform.childCount == 0 && checkAgain)
         {
             isAllEnemyDead = true;
         }
@@ -104,9 +105,9 @@ public class FormationMovement : MonoBehaviour
     
     void ResetFormationPositionAndStop(float wave)
     {
+        checkAgain = false;
         speed = 0f;
         transform.position = new Vector3(0f,2.15f,0);
-        isAllEnemyDead = false;
     }
 
 }

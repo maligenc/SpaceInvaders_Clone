@@ -7,6 +7,8 @@ public class WaveManager : MonoBehaviour
     public event Action<float> nextWave;
     private float wave = 1.0f;
 
+    private bool stopInvokeNextWave = false;
+
     void Awake()
     {
         formationMovement = GameObject.Find("FormationCenter").GetComponent<FormationMovement>();
@@ -15,9 +17,9 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
-        if (formationMovement.isAllEnemyDead == true)
+        if (formationMovement.isAllEnemyDead == true && !stopInvokeNextWave)
         {
-            formationMovement.isAllEnemyDead = false;
+            stopInvokeNextWave = true;
             wave +=1.0f;
             nextWave.Invoke(wave);
         }
