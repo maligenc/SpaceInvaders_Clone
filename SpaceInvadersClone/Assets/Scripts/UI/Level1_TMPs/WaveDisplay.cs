@@ -1,16 +1,18 @@
 using UnityEngine;
 using TMPro;
 using System;
-using System.Runtime.CompilerServices;
 using System.Collections;
 
 public class WaveDisplay : MonoBehaviour
 {
     private WaveManager waveManager;
     private TMP_Text waveText;
+    private float wavecount =0f;
     [SerializeField] private float enableTimeWindow = 0f;
     [SerializeField] private float disableTimeWindow = 0f;
     [SerializeField] private float totalDisplayTime = 0f;
+
+    public event Action<float> spawnNextWave;
 
     void Awake()
     {
@@ -31,6 +33,7 @@ public class WaveDisplay : MonoBehaviour
 
     void StartDisplay(float wave)
     {
+        wavecount = wave;
         waveText.text = $"Wave {wave}";
         StartCoroutine(blinkingWaveDisplay());
     }
@@ -51,5 +54,6 @@ public class WaveDisplay : MonoBehaviour
             currentTime += disableTimeWindow;
         }
         waveText.enabled = false;
+        spawnNextWave.Invoke(wavecount);
     }
 }

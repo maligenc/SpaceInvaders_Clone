@@ -11,10 +11,10 @@ public class FormationMovement : MonoBehaviour
     public bool isAllEnemyDead = false;
     public bool checkAgain = true;
     private WaveManager waveManager;
+    public float speed = 10f;
 
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerLife playerLife;
-    [SerializeField] private float speed = 10f;
     [SerializeField] private float SlideDown = 0.2f;
     [SerializeField] private float EnemyDeathMultiplier = 0.03125f;
 

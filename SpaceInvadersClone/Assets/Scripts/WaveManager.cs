@@ -7,7 +7,7 @@ public class WaveManager : MonoBehaviour
     public event Action<float> nextWave;
     private float wave = 1.0f;
 
-    private bool stopInvokeNextWave = false;
+    public bool stopInvokeNextWave = false;
 
     void Awake()
     {

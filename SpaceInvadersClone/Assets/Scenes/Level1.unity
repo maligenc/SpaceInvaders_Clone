@@ -468,7 +468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   FirePoint: {fileID: 1034154498}
   Bullet: {fileID: 1181723622882221187, guid: a1c45e6b4b16a4242a2e410a7eb24937, type: 3}
-  fireWindow: 0.1
+  fireWindow: 0.5
   audioManager: {fileID: 1784490541}
 --- !u!114 &214316777
 MonoBehaviour:
@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a31ecb9181764c4290100052b441c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLife
-  HP: 10
+  HP: 3
   HitAnimation: {fileID: 8805079396735959963, guid: a3544d73b11a537498bfcbb4f5fe2d73, type: 3}
   DeathAnimation: {fileID: 5061809976171441707, guid: e00743bbda3858c44988aa7991726bd7, type: 3}
   audioManager: {fileID: 1784490541}
@@ -1466,6 +1466,9 @@ MonoBehaviour:
   columnMultiplier: 1
   rowMultiplier: 1
   FormationCenter: {fileID: 1594101586}
+  waveDisplay: {fileID: 353758347}
+  formationMovement: {fileID: 1594101587}
+  waveManager: {fileID: 1252572679}
 --- !u!4 &629321726
 Transform:
   m_ObjectHideFlags: 0
@@ -2196,6 +2199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   formationMovement: {fileID: 0}
+  stopInvokeNextWave: 0
 --- !u!1 &1264485378
 GameObject:
   m_ObjectHideFlags: 0
@@ -2701,9 +2705,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FormationMovement
   isAllEnemyDead: 0
   checkAgain: 1
+  speed: 1
   playerController: {fileID: 214316774}
   playerLife: {fileID: 214316777}
-  speed: 1
   SlideDown: 0.2
   EnemyDeathMultiplier: 0.09
 --- !u!50 &1594101588
