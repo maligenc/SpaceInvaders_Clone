@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    private float waveSpeedBonus=0;
+    private float waveAgressionBonus = 0;
     [SerializeField] private Transform SpawnerPoint;
     [SerializeField] private GameObject Enemy;
     [SerializeField] private int columnSize;
@@ -13,6 +15,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private WaveDisplay waveDisplay;
     [SerializeField] private FormationMovement formationMovement;
     [SerializeField] private WaveManager waveManager;
+    [SerializeField] private EnemyWeapon enemyWeapon;
 
     void Awake()
     {
@@ -38,6 +41,24 @@ public class EnemySpawner : MonoBehaviour
     }
     void SpawnEnemies(float wavecount)
     {
+        if (columnSize <= 12)
+        {
+            if (wavecount % 3 == 0)
+            {
+                columnSize += 1;
+                formationMovement.enemycount = columnSize*rowSize;
+            }
+        }
+        if(wavecount % 2 == 0)
+        {
+            waveSpeedBonus += 0.2f;
+        }
+
+        if(wavecount % 2 == 0)
+        {
+            waveAgressionBonus += 0.2f;
+        }
+
         for(int row =0 ; row<rowSize ; row++)
         {
             for(int col =0 ; col<columnSize ; col++)
@@ -45,10 +66,13 @@ public class EnemySpawner : MonoBehaviour
                 Vector3 spawn = SpawnerPoint.position;
                 spawn.y += row*rowMultiplier;
                 spawn.x += col*columnMultiplier;
-                Instantiate(Enemy,spawn,SpawnerPoint.rotation,FormationCenter);
+                GameObject spawned = Instantiate(Enemy,spawn,SpawnerPoint.rotation,FormationCenter);
+                spawned.GetComponent<EnemyWeapon>().MaxShootingWindow -=waveAgressionBonus;
             }
         }
-        formationMovement.speed = 1f;
+
+
+        formationMovement.speed = 1f + waveSpeedBonus;
         formationMovement.isAllEnemyDead = false;
         formationMovement.checkAgain = true;
         waveManager.stopInvokeNextWave = false;

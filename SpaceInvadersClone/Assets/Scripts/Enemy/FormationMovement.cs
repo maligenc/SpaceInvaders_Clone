@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 public class FormationMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private int enemycount;
+    public int enemycount;
     private Vector2 direction = Vector2.right;
     private Vector2 leadingEdgeX = Vector2.zero;
     public bool isAllEnemyDead = false;
