@@ -25,10 +25,16 @@ public class LevelManager : MonoBehaviour
             formationMovement = GameObject.Find("FormationCenter").GetComponent<FormationMovement>();
 
         }
+        else
+        {
+            playerLife = null;
+            playerShip = null;
+            formationMovement = null;
+        }
     }
     void Update()
     {
-        if (playerLife.HP <= 0)
+        if (playerLife != null && playerLife.HP <= 0)
         {
             Destroy(playerShip);
             SceneManager.LoadScene("You_Lose");
