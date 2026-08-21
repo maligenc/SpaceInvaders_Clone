@@ -206,7 +206,7 @@ MonoBehaviour:
   FirePoint: {fileID: 516394490405102761}
   EnemyBullet: {fileID: 1245938663462576206, guid: b98323bc5ccbf1940a4578c4dfd4b858, type: 3}
   MinShootingWindow: 0
-  MaxShootingWindow: 2
+  MaxShootingWindow: 2.4
   audioManager: {fileID: 0}
 --- !u!114 &2020454619695459853
 MonoBehaviour:
