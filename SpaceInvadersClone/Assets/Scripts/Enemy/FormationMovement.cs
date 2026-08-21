@@ -22,15 +22,19 @@ public class FormationMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         enemycount = transform.childCount;
-        waveManager = GameObject.Find("GameManager").GetComponent<WaveManager>();
     }
-    void OnEnable()
+    void Start()
     {
+        waveManager = WaveManager.Instance;
         waveManager.nextWave += ResetFormationPositionAndStop;
     }
     void OnDisable()
     {
-        waveManager.nextWave -=ResetFormationPositionAndStop;
+        if(waveManager != null)
+        {
+            waveManager.nextWave -=ResetFormationPositionAndStop;
+        }
+        
     }
 
     void Update()

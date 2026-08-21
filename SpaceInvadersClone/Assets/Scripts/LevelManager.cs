@@ -5,7 +5,6 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private PlayerLife playerLife;
     [SerializeField] private FormationMovement formationMovement;
-    [SerializeField] private string destinationRoom;
     public GameObject playerShip;
 
     void OnEnable()
@@ -34,9 +33,5 @@ public class LevelManager : MonoBehaviour
             Destroy(playerShip);
             SceneManager.LoadScene("You_Lose");
         }
-        // else if (formationMovement.isAllEnemyDead)
-        // {
-        //     SceneManager.LoadScene(destinationRoom);
-        // }
     }
 }

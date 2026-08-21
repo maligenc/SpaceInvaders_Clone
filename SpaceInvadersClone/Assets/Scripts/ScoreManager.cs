@@ -31,8 +31,6 @@ public class ScoreManager : MonoBehaviour
     public void addUpPoint()
     {
         totalScore += killPoint*scoreMultiplier;
-        Debug.Log(scoreMultiplier);
-        Debug.Log(totalScore);
     }
 
     public void addMultiplier()

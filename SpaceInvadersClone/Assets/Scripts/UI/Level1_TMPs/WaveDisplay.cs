@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class WaveDisplay : MonoBehaviour
 {
@@ -17,18 +18,24 @@ public class WaveDisplay : MonoBehaviour
     void Awake()
     {
         waveText = GetComponent<TMP_Text>();
-        waveManager = GameObject.Find("GameManager").GetComponent<WaveManager>();
         waveText.enabled=false;
+
     }
 
-    void OnEnable()
+
+    void Start()
     {
+        waveManager = WaveManager.Instance;
         waveManager.nextWave += StartDisplay;
     }
 
     void OnDisable()
     {
-        waveManager.nextWave -= StartDisplay;
+        if(waveManager != null)
+        {
+            waveManager.nextWave -= StartDisplay;
+        }
+
     }
 
     void StartDisplay(float wave)
